@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy New Year 2025 Syawalia!
+        Selalu Kuncup Ketika Disapa Olehmu, Hallo aku Fadhlan
+    </title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+        h1 {
+            color: #fff;
+            font-size: 4em;
+            position: absolute;
+            top: 15%;
+            text-align: center;
+            text-shadow: 0 0 20px #39ff14, 0 0 40px #00ffff;
+            animation: glow 2s infinite alternate;
+        }
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 20px #39ff14, 0 0 40px #00ffff;
+            }
+            to {
+                text-shadow: 0 0 40px #39ff14, 0 0 80px #00ffff;
+            }
+        }
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .start-btn {
+            position: absolute;
+            bottom: 10%;
+            padding: 15px 30px;
+            font-size: 1.5em;
+            color: white;
+            background-color: #ff4081;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            animation: pulse 2s infinite;
+            text-shadow: 0 0 20px #ff4081;
+        }
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+        .start-btn:hover {
+            background-color: #e91e63;
+        }
+    </style>
+</head>
+<body>
+    <h1>Happy New Year 2025 Syawalia!</h1>
+    <canvas id="fireworks"></canvas>
+    <a href="/question" class="start-btn">Mau Nanya Sesuatu Nihh</a>
+
+    <script>
+        const canvas = document.getElementById('fireworks');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        function random(min, max) {
+            return Math.random() * (max - min) + min;
+        }
+
+        class Firework {
+            constructor() {
+                this.x = random(0, canvas.width);
+                this.y = canvas.height;
+                this.targetX = random(0, canvas.width);
+                this.targetY = random(0, canvas.height / 2);
+                this.color = `hsl(${random(0, 360)}, 100%, 70%)`;
+                this.size = random(2, 4);
+                this.alpha = 1;
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.alpha;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+                ctx.restore();
+            }
+
+            update() {
+                this.x += (this.targetX - this.x) * 0.05;
+                this.y += (this.targetY - this.y) * 0.05;
+                this.alpha -= 0.02;
+            }
+        }
+
+        const fireworks = [];
+        setInterval(() => {
+            fireworks.push(new Firework());
+        }, 300);
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            fireworks.forEach((firework, index) => {
+                firework.update();
+                firework.draw();
+                if (firework.alpha <= 0) {
+                    fireworks.splice(index, 1);
+                }
+            });
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    </script>
+</body>
+</html>

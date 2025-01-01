@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responses</title>
+    <style>
+        body {
+            background-color: #fef5e2;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .responses-container {
+            text-align: center;
+            background: #ffcccb;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+        }
+        .responses-container h1 {
+            color: #ff5c8d;
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+        .responses-container ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .responses-container li {
+            background-color: #ffeff1;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+    <div class="responses-container">
+        <h1>Submitted Responses</h1>
+        {% if responses %}
+            <ul>
+                {% for response in responses %}
+                    <li>{{ response }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No responses yet.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
